@@ -15,7 +15,12 @@ def signupUser(request):
     if request.method == 'POST':
         form = RegisterUserForm(request.POST)
         if form.is_valid():
-            pass
+            user = form.save(commit=False)
+            user.email = user.email.lower()
+            user.username = user.username.lower()
+            user.save()
+            login(request, user)
+            return redirect(index)
     return render(request, 'signup.html', context)
 
 def loginUser(request):
@@ -25,7 +30,7 @@ def loginUser(request):
     if request.method == 'POST':
         form = LoginUserForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
+            username = form.cleaned_data['username'].lower()
             password = form.cleaned_data['password']
             try:
                 user_exist = User.objects.get(username=username)

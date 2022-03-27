@@ -28,7 +28,10 @@
 						<form method="POST" action="">
 							<!-- Email input -->
 							<div class="form-outline mb-4">
-								<label class="form-label d-block" for="{{form.username.auto_id}}">
+								<label
+									class="form-label d-block"
+									for="{{form.username.auto_id}}"
+								>
 									Username
 								</label>
 								{{form.username}}
@@ -42,7 +45,9 @@
 							</div>
 							<!-- Password input -->
 							<div class="form-outline mb-4">
-								<label class="form-label" for="{{form.password1.auto_id}}"> {{form.password1.label}} </label>
+								<label class="form-label" for="{{form.password1.auto_id}}">
+									{{form.password1.label}}
+								</label>
 								{{form.password1}}
 							</div>
 							<!-- Confirm Password input -->
@@ -51,6 +56,12 @@
 									Confirm Password
 								</label>
 								{{form.password2}}
+							</div>
+							<div class="mb-4">
+								<div class="d-flex justify-content-center">
+									<p class="d-inline-block mt-2">Alreday have an Account?</p>
+									<a href="{% url 'login' %}" class="btn btn-link me-3"> Login </a>
+								</div>
 							</div>
 							<!-- Submit button -->
 							<button type="submit" class="btn btn-primary btn-block mb-4">
