@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import RegisterUserForm, LoginUserForm
@@ -8,12 +8,17 @@ from .forms import RegisterUserForm, LoginUserForm
 def index(request):
     return render(request, 'index.html')
 
-def signup_page(request):
+def signupUser(request):
     form = RegisterUserForm()
     context = {'form':form}
+
+    if request.method == 'POST':
+        form = RegisterUserForm(request.POST)
+        if form.is_valid():
+            pass
     return render(request, 'signup.html', context)
 
-def login_page(request):
+def loginUser(request):
     form = LoginUserForm()
     context = {'form': form}
 
@@ -36,3 +41,7 @@ def login_page(request):
                 messages.error(request, 'User does not exist, sign-up')
                 
     return render(request, 'login.html', context)
+
+def logoutUser(request):
+    logout(request)
+    return redirect(loginUser)
