@@ -1,6 +1,6 @@
 from unicodedata import name
 from django.shortcuts import render
-from .forms import RegisterUserForm
+from .forms import RegisterUserForm, LoginUserForm
 
 # Create your views here.
 def index(request):
@@ -12,4 +12,6 @@ def signup_page(request):
     return render(request, 'signup.html', context)
 
 def login_page(request):
-    return render(request, 'login.html')
+    form = LoginUserForm()
+    context = {'form': form}
+    return render(request, 'login.html', context)
