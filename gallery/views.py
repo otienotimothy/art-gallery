@@ -14,6 +14,8 @@ def signup_page(request):
     return render(request, 'signup.html', context)
 
 def login_page(request):
+    form = LoginUserForm()
+    context = {'form': form}
 
     if request.method == 'POST':
         form = LoginUserForm(request.POST)
@@ -21,17 +23,16 @@ def login_page(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             try:
-                User.objects.get(username=username)
+                user_exist = User.objects.get(username=username)
+                if user_exist:
+                    user = authenticate(
+                        request, username=username, password=password)
+                    if user:
+                        login(request, user)
+                        return redirect(index)
+                    else: 
+                        messages.error(request, 'Invalid username or password')
             except:
                 messages.error(request, 'User does not exist, sign-up')
-
-            user = authenticate(request, username=username, password=password)
-
-            if user:
-                login(request, user)
-                return redirect(index)
-            else:
-                messages.error(request, 'Invalid username or password')
-            
-    context = {'form': form}
+                
     return render(request, 'login.html', context)
