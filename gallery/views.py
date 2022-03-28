@@ -51,3 +51,7 @@ def loginUser(request):
 def logoutUser(request):
     logout(request)
     return redirect(loginUser)
+
+
+def upload(request):
+    return render(request, 'add_image.html')
