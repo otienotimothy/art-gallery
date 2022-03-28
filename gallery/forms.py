@@ -1,7 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
-from django.forms import EmailInput, PasswordInput, TextInput
+from django.forms import EmailInput, PasswordInput, TextInput, FileInput, Select, Textarea
+from .models import Photo
 
 
 class RegisterUserForm(UserCreationForm):
@@ -28,3 +29,21 @@ class LoginUserForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['password'].widget.attrs.update({'class': 'form-control'})
 
+
+class UploadImageForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        fields = ('image', 'image_name', 'image_description',
+                  'location', 'category')
+        labels = {
+            'image': 'Select Image',
+            'image_name': 'Name',
+            'image_description': 'Description'
+        }
+        widgets = {
+            'image': FileInput(attrs={'class': 'form-control mt-1'}),
+            'location': Select(attrs={'class': 'form-select mt-1'}),
+            'category': Select(attrs={'class': 'form-select mt-1'}),
+            'image_name': TextInput(attrs={'class': 'form-control mt-1'}),
+            'image_description': Textarea(attrs={'class': 'form-control mt-1'}),
+        }

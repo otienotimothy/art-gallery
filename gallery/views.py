@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import RegisterUserForm, LoginUserForm
+from .forms import RegisterUserForm, LoginUserForm, UploadImageForm
 
 # Create your views here.
 def index(request):
@@ -54,4 +54,6 @@ def logoutUser(request):
 
 
 def upload(request):
-    return render(request, 'add_image.html')
+    form = UploadImageForm()
+    context = {'form': form}
+    return render(request, 'add_image.html', context)

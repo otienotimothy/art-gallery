@@ -1,33 +1,65 @@
 {% extends 'base.html' %} {% block content %}
-<div class="container">
-	<h2 class="my-4">Upload Image</h2>
-	<form action="">
-		<div class="mb-3">
-			<label for="formFile" class="form-label"
-				>Default file input example</label
-			>
-			<input class="form-control" type="file" id="formFile" />
-		</div>
-		<div class="row mb-3">
-			<div class="col">
-				<select class="form-select" aria-label="Default select example">
-					<option selected>Open this select menu</option>
-					<option value="1">One</option>
-					<option value="2">Two</option>
-					<option value="3">Three</option>
-				</select>
+<div class="container-fluid">
+	<section class="text-center">
+		<!-- Background image -->
+		<div
+			class="p-5 bg-image"
+			style="
+				background-image: url('https://mdbootstrap.com/img/new/textures/full/171.jpg');
+                background-position: center;
+				height: 300px;
+			"
+		></div>
+		<!-- Background image -->
+
+		<div
+			class="card mx-4 mx-md-5 shadow-5-strong"
+			style="
+				margin-top: -120px;
+				background: hsla(0, 0%, 100%, 0.8);
+				backdrop-filter: blur(30px);
+			"
+		>
+			<div class="card-body py-5 px-md-5">
+				<div class="row d-flex justify-content-center">
+					<div class="col-lg-8">
+						<h2 class="fw-bold mb-5">Upload Image</h2>
+						<form>
+							<!-- File Input Field -->
+							{% csrf_token %}
+							<div class="mb-3">{{form.image.label}} {{ form.image }}</div>
+							<!-- 2 column grid layout with text inputs for the location and category -->
+							<div class="row">
+								<div class="col-md-6 mb-4">
+									<div class="form-outline">
+										{{form.location.label}} {{ form.location }}
+									</div>
+								</div>
+								<div class="col-md-6 mb-4">
+									<div class="form-outline">
+										{{form.category.label}} {{ form.category }}
+									</div>
+								</div>
+							</div>
+							<!-- Name input -->
+							<div class="form-outline mb-4">
+								{{form.image_name.label}} {{form.image_name}}
+							</div>
+							<!-- Description input -->
+							<div class="form-outline mb-4">
+								{{form.image_description.label}} {{form.image_description}}
+							</div>
+							<!-- Submit button -->
+							<button type="submit" class="btn btn-primary btn-block mb-4">
+								Upload
+							</button>
+						</form>
+					</div>
+				</div>
 			</div>
-			<div class="col">
-				<select class="form-select" aria-label="Default select example">
-					<option selected>Open this select menu</option>
-					<option value="1">One</option>
-					<option value="2">Two</option>
-					<option value="3">Three</option>
-				</select>
-			</div>
 		</div>
-        <button class="btn btn-primary">Upload</button>
-	</form>
+	</section>
 </div>
 
 {% endblock %}
+
