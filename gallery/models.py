@@ -12,9 +12,18 @@ class Photo(models.Model):
     location = models.ForeignKey('Location', on_delete=models.RESTRICT)
     category = models.ForeignKey('Category', on_delete=models.RESTRICT)
 
+    def __str__(self):
+        return self.image_name
+
 class Location(models.Model):
     photo_location = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.photo_location
 
 
 class Category(models.Model):
     photo_category = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.photo_category
