@@ -56,4 +56,13 @@ def logoutUser(request):
 def upload(request):
     form = UploadImageForm()
     context = {'form': form}
+    if request.method == 'POST':
+        user_id = request.user.id
+        form = UploadImageForm(request.POST)
+        form.save(commit=False)
+        form['added_by'] = user_id
+        form.save()
+        messages.success(request, 'Image Uploaded Successfully')
+    else:
+        messages.error(request, 'An error occurred while uploading the image')
     return render(request, 'add_image.html', context)
