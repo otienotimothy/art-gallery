@@ -1,7 +1,23 @@
-{% extends 'base.html' %}
-
-{% block content %}
-
-<h1>Hello World</h1>
-
+{% extends 'base.html' %} {% block content %}
+<div>
+	<div class="row">
+		<div class="col-12 col-md-3 col-lg-2">{% include 'sidebar.html' %}</div>
+		<div class="col-12 col-md-9 col-lg-10">
+			<div class="container-fluid pt-3">
+				<h1 class="text-center text-primary">The Lux Experience</h1>
+				<hr>
+				<div class="d-flex justify-content-between flex-wrap">
+					{% for photo in photos %}
+					<img
+						src="{{photo.image.url}}"
+						class="img-fluid hover-shadow"
+						alt="{{photo.title}}"
+						width="30%"
+					/>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}

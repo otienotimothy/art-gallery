@@ -2,10 +2,18 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from .models import Photo, Location
 from .forms import RegisterUserForm, LoginUserForm, UploadImageForm
 
 # Create your views here.
 def index(request):
+    try:
+        images = Photo.objects.all()
+        locations = Location.objects.all()
+        context = {'photos': images, 'locations': locations}
+        return render(request, 'index.html', context)
+    except:
+        messages.error(request, 'An Error occurred while Fetching Images')
     return render(request, 'index.html')
 
 def signupUser(request):
@@ -57,12 +65,14 @@ def upload(request):
     form = UploadImageForm()
     context = {'form': form}
     if request.method == 'POST':
-        user_id = request.user.id
-        form = UploadImageForm(request.POST)
-        form.save(commit=False)
-        form['added_by'] = user_id
-        form.save()
-        messages.success(request, 'Image Uploaded Successfully')
-    else:
-        messages.error(request, 'An error occurred while uploading the image')
+        try:
+            user_id = request.user.id
+            form = UploadImageForm(request.POST)
+            form.save(commit=False)
+            form['added_by'] = user_id
+            form.save()
+            messages.success(request, 'Image Uploaded Successfully')
+        except:
+            messages.error(
+                request, 'An error occurred while uploading the image')  
     return render(request, 'add_image.html', context)

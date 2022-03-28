@@ -1,0 +1,19 @@
+<div style="height: 100vh; color: whitesmoke; background-color: #022b57">
+	<div class="py-4 px-5">
+		<i class="fa-solid fa-user display-5 mt-4 border border-light px-4 py-4 rounded-circle"></i>
+	</div>
+	<p class="mt-2 mb-5 px-3 fs-5">Howdy, {{request.user.username}}</p>
+	<div class="px-4 mb-5">
+		<a href="{% url 'upload' %}" class="btn btn-light rounded-pill px-2">
+			Upload Image
+		</a>
+	</div>
+	<div class="my-3">
+		<h3 class="px-3 mb-3">Locations</h3>
+		<ul>
+			<li class="mb-2"><a class="text-light p-2" href="#"> Nairobi </a></li>
+			<li class="mb-2"><a class="text-light p-2" href="#"> Monte Carlo </a></li>
+			<li class="mb-2"><a class="text-light p-2" href="#"> Johannesburg </a></li>
+		</ul>
+	</div>
+</div>
