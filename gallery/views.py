@@ -15,17 +15,13 @@ def signupUser(request):
     if request.method == 'POST':
         form = RegisterUserForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username'].lower()
-            user_exist = User.objects.get(username=username)
-            if user_exist:
-                messages.error(request, f'A User with username, {username}, already exist. Login instead.')
-            else:
-                user = form.save(commit=False)
-                user.email = user.email.lower()
-                user.username = user.username.lower()
-                user.save()
-                login(request, user)
-                return redirect(index)
+            user = form.save(commit=False)
+            user.email = user.email.lower()
+            user.username = user.username.lower()
+            user.save()
+            login(request, user)
+            return redirect(index)
+            
     return render(request, 'signup.html', context)
 
 def loginUser(request):
