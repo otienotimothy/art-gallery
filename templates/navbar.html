@@ -1,41 +1,50 @@
 <!-- Navbar -->
 {% load static %}
-<nav style="background-color: #022b57;" class="navbar navbar-expand-lg navbar-light">
-  <!-- Container wrapper -->
-  <div class="container">
-    <!-- Navbar brand -->
-  
-    <a class="text-light navbar-brand fs-2" href="{% url 'index'%}">ART & LUX</a>
+<nav
+	style="background-color: #022b57"
+	class="navbar navbar-expand-lg navbar-light"
+>
+	<!-- Container wrapper -->
+	<div class="container">
+		<!-- Navbar brand -->
 
-    <!-- Toggle button -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-mdb-toggle="collapse"
-      data-mdb-target="#navbarButtonsExample"
-      aria-controls="navbarButtonsExample"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <i class="fas fa-bars"></i>
-    </button>
+		<a class="text-light navbar-brand fs-2" href="{% url 'index'%}"
+			>ART & LUX</a
+		>
 
-    <!-- Collapsible wrapper -->
-    <div class="collapse navbar-collapse" id="navbarButtonsExample">
-      <div class="ms-auto d-flex align-items-center">
-        {% if user.is_authenticated %}
-        <a href="" class="btn btn-light me-3">
-          Logout
-        </a>
-        {% else %}
-        <a href="{% url 'login' %}" class="btn btn-light me-3">
-          Login
-        </a>
-        {% endif %}
-      </div>
-    </div>
-    <!-- Collapsible wrapper -->
-  </div>
-  <!-- Container wrapper -->
+		<!-- Toggle button -->
+		<button
+			class="navbar-toggler"
+			type="button"
+			data-mdb-toggle="collapse"
+			data-mdb-target="#navbarButtonsExample"
+			aria-controls="navbarButtonsExample"
+			aria-expanded="false"
+			aria-label="Toggle navigation"
+		>
+			<i class="fas fa-bars"></i>
+		</button>
+
+		<!-- Collapsible wrapper -->
+		<div class="collapse navbar-collapse" id="navbarButtonsExample">
+			<div class="ms-auto d-flex">
+				{% if user.is_authenticated %}
+				<div class="input-group me-5">
+					<div class="form-outline">
+						<input type="search" id="form1" class="form-control" />
+					</div>
+					<button type="button" class="btn btn-primary">
+						<i class="fas fa-search"></i>
+					</button>
+				</div>
+				<a href="" class="btn btn-light me-3"> Logout </a>
+				{% else %}
+				<a href="{% url 'login' %}" class="btn btn-light me-3"> Login </a>
+				{% endif %}
+			</div>
+		</div>
+		<!-- Collapsible wrapper -->
+	</div>
+	<!-- Container wrapper -->
 </nav>
 <!-- Navbar -->
