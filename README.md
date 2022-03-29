@@ -18,7 +18,7 @@ Art & Lux is web application that enables the user create and account, add image
 
 ## Links
 
-- Web Application Link - <https://flask-blogy.herokuapp.com/>
+- Web Application Link - <>
 - Project Repository Link - <https://github.com/otienotimothy/art-gallery.git>
 
 ## Setup/Installation Requirements
