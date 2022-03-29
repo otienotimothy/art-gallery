@@ -5,15 +5,63 @@
 		<div class="col-12 col-md-9 col-lg-10">
 			<div class="container-fluid pt-3">
 				<h1 class="text-center text-primary">The Lux Experience</h1>
-				<hr>
+				<hr />
 				<div class="d-flex justify-content-between flex-wrap">
 					{% for photo in photos %}
 					<img
 						src="{{photo.image.url}}"
-						class="img-fluid hover-shadow"
+						class="img-fluid shadow"
 						alt="{{photo.title}}"
 						width="30%"
+						data-bs-toggle="modal"
+						data-bs-target="#exampleModal"
+						style="cursor: pointer"
 					/>
+					<!-- Modal -->
+					<div
+						class="modal fade"
+						id="exampleModal"
+						tabindex="-1"
+						aria-labelledby="exampleModalLabel"
+						aria-hidden="true"
+					>
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-body">
+									<div class="card">
+										<div
+											class="bg-image hover-overlay ripple"
+											data-mdb-ripple-color="light"
+										>
+											<img
+												src="{{photo.image.url}}"
+												class="img-fluid"
+											/>
+											<a href="#!">
+												<div
+													class="mask"
+													style="background-color: rgba(251, 251, 251, 0.15)"
+												></div>
+											</a>
+										</div>
+										<div class="card-body">
+											<h5 class="card-title"> {{photo.image_name}} </h5>
+											<p class="card-text">
+												{{photo.image_description}}
+											</p>
+											<button
+												type="button"
+												class="btn btn-secondary"
+												data-bs-dismiss="modal"
+											>
+												Close
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					{% endfor %}
 				</div>
 			</div>
