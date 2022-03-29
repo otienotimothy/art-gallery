@@ -31,7 +31,8 @@ SECRET_KEY = 'django-insecure-ow)m98$8twptlq^3dtv$-_k!at&-6dmtc325ea24b0651!wce-
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'art-lux.herokuapp.com'
+    'art-lux.herokuapp.com',
+    'localhost'
 ]
 
 
