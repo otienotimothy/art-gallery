@@ -1,16 +1,17 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Photo, Location
 from .forms import RegisterUserForm, LoginUserForm, UploadImageForm
 
 # Create your views here.
+@login_required(login_url='login')
 def index(request):
     try:
         images = Photo.objects.all()
-        locations = Location.objects.all()
-        context = {'photos': images, 'locations': locations}
+        context = {'photos': images}
         return render(request, 'index.html', context)
     except:
         messages.error(request, 'An Error occurred while Fetching Images')
@@ -19,6 +20,9 @@ def index(request):
 def signupUser(request):
     form = RegisterUserForm()
     context = {'form':form}
+
+    if request.user.is_authenticated():
+        return redirect(index)
 
     if request.method == 'POST':
         form = RegisterUserForm(request.POST)
@@ -35,6 +39,9 @@ def signupUser(request):
 def loginUser(request):
     form = LoginUserForm()
     context = {'form': form}
+
+    if request.user.is_authenticated():
+        return redirect(index)
 
     if request.method == 'POST':
         form = LoginUserForm(request.POST)
@@ -56,11 +63,14 @@ def loginUser(request):
                 
     return render(request, 'login.html', context)
 
+
+@login_required(login_url='login')
 def logoutUser(request):
     logout(request)
     return redirect(loginUser)
 
 
+@login_required(login_url='login')
 def upload(request):
     form = UploadImageForm()
     context = {'form': form}
