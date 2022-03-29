@@ -75,14 +75,14 @@ def upload(request):
     form = UploadImageForm()
     context = {'form': form}
     if request.method == 'POST':
-        try:
+    
             user_id = request.user.id
             form = UploadImageForm(request.POST)
             form.save(commit=False)
             form['added_by'] = user_id
             form.save()
             messages.success(request, 'Image Uploaded Successfully')
-        except:
-            messages.error(
-                request, 'An error occurred while uploading the image')  
+        # except:
+        #     messages.error(
+        #         request, 'An error occurred while uploading the image')  
     return render(request, 'add_image.html', context)
