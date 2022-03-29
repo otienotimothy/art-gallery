@@ -21,7 +21,7 @@ def signupUser(request):
     form = RegisterUserForm()
     context = {'form':form}
 
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return redirect(index)
 
     if request.method == 'POST':
@@ -40,7 +40,7 @@ def loginUser(request):
     form = LoginUserForm()
     context = {'form': form}
 
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return redirect(index)
 
     if request.method == 'POST':
