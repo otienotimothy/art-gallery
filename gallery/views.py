@@ -7,19 +7,23 @@ from .models import Photo, Location
 from .forms import RegisterUserForm, LoginUserForm, UploadImageForm
 
 # Create your views here.
+
+
 @login_required(login_url='login')
 def index(request):
     try:
         images = Photo.objects.all()
-        context = {'photos': images}
+        locations = Location.objects.all()
+        context = {'photos': images, 'locations': locations}
         return render(request, 'index.html', context)
     except:
         messages.error(request, 'An Error occurred while Fetching Images')
     return render(request, 'index.html')
 
+
 def signupUser(request):
     form = RegisterUserForm()
-    context = {'form':form}
+    context = {'form': form}
 
     if request.user.is_authenticated:
         return redirect(index)
@@ -27,14 +31,23 @@ def signupUser(request):
     if request.method == 'POST':
         form = RegisterUserForm(request.POST)
         if form.is_valid():
+            print('running')
             user = form.save(commit=False)
-            user.email = user.email.lower()
-            user.username = user.username.lower()
-            user.save()
-            login(request, user)
-            return redirect(index)
-            
+            if User.objects.filter(username=user.username.lower()).exists():
+                messages.error(
+                    request, f'A User with the username, {user.username}, already exists.')
+            elif User.objects.filter(email=user.email.lower()).exists():
+                messages.error(request,
+                               f'A User with the email, {user.email}, already exists.')
+            else:
+                user.email = user.email.lower()
+                user.username = user.username.lower()
+                user.save()
+                login(request, user)
+                return redirect(index)
+
     return render(request, 'signup.html', context)
+
 
 def loginUser(request):
     form = LoginUserForm()
@@ -56,11 +69,11 @@ def loginUser(request):
                     if user:
                         login(request, user)
                         return redirect(index)
-                    else: 
+                    else:
                         messages.error(request, 'Invalid username or password')
             except:
                 messages.error(request, 'User does not exist, sign-up')
-                
+
     return render(request, 'login.html', context)
 
 
@@ -75,14 +88,13 @@ def upload(request):
     form = UploadImageForm()
     context = {'form': form}
     if request.method == 'POST':
-    
-            user_id = request.user.id
-            form = UploadImageForm(request.POST)
-            form.save(commit=False)
-            form['added_by'] = user_id
+        form = UploadImageForm(request.POST, initial={
+                               'added_by': request.user.id})
+        if form.is_valid():
             form.save()
             messages.success(request, 'Image Uploaded Successfully')
-        # except:
-        #     messages.error(
-        #         request, 'An error occurred while uploading the image')  
+        else:
+            print('form Invalid')
+            messages.error(
+                request, 'An error occurred while uploading the image')
     return render(request, 'add_image.html', context)
