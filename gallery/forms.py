@@ -47,3 +47,12 @@ class UploadImageForm(forms.ModelForm):
             'image_name': TextInput(attrs={'class': 'form-control mt-1'}),
             'image_description': Textarea(attrs={'class': 'form-control mt-1'}),
         }
+
+
+# class AddImagesView(CreateView):
+#     models = Images
+#     form_class = ImageForm
+#     template_name = 'post_image.html'
+
+#     def get_queryset(self):
+#         return Images.objects.all()

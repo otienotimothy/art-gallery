@@ -88,10 +88,11 @@ def upload(request):
     form = UploadImageForm()
     context = {'form': form}
     if request.method == 'POST':
-        form = UploadImageForm(request.POST, initial={
-                               'added_by': request.user.id})
+        form = UploadImageForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            user = form.save(commit=False)
+            user.added_by_id = request.user.id
+            user.save()
             messages.success(request, 'Image Uploaded Successfully')
         else:
             print('form Invalid')

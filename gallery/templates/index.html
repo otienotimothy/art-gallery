@@ -4,11 +4,11 @@
 		<div class="col-12 col-md-3 col-lg-2">{% include 'sidebar.html' %}</div>
 		<div class="col-12 col-md-9 col-lg-10">
 			<div class="container-fluid pt-3">
-				<div class="d-flex justify-content-between flex-wrap">
+				<div class="d-flex justify-content-around flex-wrap">
 					{% for photo in photos %}
 					<img
 						src="{{photo.image.url}}"
-						class="img-fluid shadow mb-3"
+						class="img-fluid shadow mb-4"
 						alt="{{photo.title}}"
 						width="30%"
 						data-bs-toggle="modal"
